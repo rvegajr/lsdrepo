@@ -6,6 +6,7 @@ using System.Web;
 
 public interface IScoreMethod
 {
+    string Url { get; set; }
     IEventSummary GetEventSummary(int lsevent_id, int series_id);
     IEventMatchSummary GetMatchSummary(int lsevent_id, int series_id);
     IMatchDetails GetMatchDetails(int lsevent_id, int series_id);

@@ -11,14 +11,30 @@ namespace LaserSportDataAPI.CLI
 {
     class LaserSportDataAPICLI : ConsoleBase
     {
+        protected override void ShowUsageEvent()
+        {
+            Console_WriteLine(@"  /a - Action ");
+            Console_WriteLine(@"    xlsimport  - Data Import from that Standard Armageddon Import format");
+            Console_WriteLine(@"    evtrestest - Event Result Test");
+            Console_WriteLine(@"  /p - path to search for files");
+            Console_WriteLine(@"  /e - Event Meta Data 'Event Name|Event code|Schedule Date|Score Method'");
+            Console_WriteLine(@"  /a:xlsimport /p:<XLS FILE PATH> /e:<Event Meta Data>");
+            // /a:xlsimport /e:"Armageddon 2099|A2099US|6/21/2013 12:00:00 AM|a20xx_v2" /p:"C:\Users\Ricky\Documents\Projects\a20xx\lsdrepo\xls"
+            Console_WriteLine(@"  /a:evtrestest /e:<event id to test>");  // /a:evtrestest /e:8
+        }
+
+        protected void ProcessEventResultTest(int EventId)
+        {
+            var resTest = new LsrEventResultTest();
+            resTest.OnStatusChange = StatusChange;
+            resTest.EventResultRest(EventId);
+        }
         protected void ProcessInputExcel()
         {
-            int iTaskRecCount = 0;
-            int iResourceRecCount = 0;
             string sNewFileName = "";
             Console_Write("Processing  appent to Input XLSX");
-            string[] filePathsXLSX = Directory.GetFiles(sPath, "*.xlsx", SearchOption.TopDirectoryOnly);
-            string[] filePathsXLS = Directory.GetFiles(sPath, "*.xls", SearchOption.TopDirectoryOnly);
+            string[] filePathsXLSX = Directory.GetFiles(Path, "*.xlsx", SearchOption.TopDirectoryOnly);
+            string[] filePathsXLS = Directory.GetFiles(Path, "*.xls", SearchOption.TopDirectoryOnly);
             var filePaths = new string[filePathsXLSX.Length + filePathsXLS.Length];
             filePathsXLSX.CopyTo(filePaths, 0);
             filePathsXLS.CopyTo(filePaths, filePathsXLSX.Length);
@@ -30,7 +46,7 @@ namespace LaserSportDataAPI.CLI
             xlimport.OnStatusChange = StatusChange;
             foreach (string sFileName in filePaths)
             {
-                xlimport.ParseEventString(sEventMetaData);
+                xlimport.ParseEventString(EventMetaData);
                 xlimport.ImportFromExcel(sFileName);
 
                 Console_Write("Record Counts" + "\n");
@@ -43,34 +59,43 @@ namespace LaserSportDataAPI.CLI
         }
 
 
-        private string sAction = "";
-        private string sEventMetaData = "";
-        private string sPath = "";
+        private string Action = "";
+        private string EventMetaData = "";
+        private int EventId = int.MinValue;
+        private string Path = "";
         protected override void RunEvent()
         {
             Init();
-            if (sAction.Equals("xlsimport"))
+            switch (Action)
             {
-                ProcessInputExcel();
+                case "xlsimport":
+                    ProcessInputExcel();
+                    break;
+                case "evtrestest":
+                    if (EventId.Equals(int.MinValue))
+                    {
+                        Console_WriteLine("/e was not set to a valid numeric,  ending utility.");
+                    }
+                    else 
+                    {
+                        ProcessEventResultTest(EventId);
+                    }
+                    break;
+                default:
+                    Console_WriteLine("Action '" + Action + "' is unknown, ending Utility.");
+                    break;
             }
-
         }
-        protected override void ShowUsageEvent()
-        {
-            Console_WriteLine(@"  /a - Action ");
-            Console_WriteLine(@"    xlsimport  - Data Import from that Standard Armageddon Import format");
-            Console_WriteLine(@"  /p - path to search for files");
-            Console_WriteLine(@"  /e - Event Meta Data 'Event Name|Event code|Schedule Date|Score Method'");
-            Console_WriteLine(@"  /a:xlsimport /p:<XLS FILE PATH> /e:<Event Meta Data>");
-            // /a:xlsimport /e:"Armageddon 2099|A2099US|6/21/2013 12:00:00 AM|a20xx_v2" /p:"C:\Users\Ricky\Documents\Projects\a20xx\lsdrepo\xls"
-        }
-
         protected override void ProcessCommandLineEvent()
         {
             int i = 0;
-            Exists("a", "action", out sAction);
-            Exists("p", "path", out sPath);
-            Exists("e", "event", out sEventMetaData);
+            Exists("a", "action", out Action);
+            Exists("p", "path", out Path);
+            Exists("e", "event", out EventMetaData);
+            if (!int.TryParse(EventMetaData, out EventId))
+            {
+                EventId = int.MinValue;
+            }
         }
 
         protected void StatusChange(string message)

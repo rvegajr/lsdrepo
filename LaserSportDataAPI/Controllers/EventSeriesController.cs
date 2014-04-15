@@ -9,17 +9,16 @@ using AttributeRouting.Web.Http;
 using LaserSportDataObjects;
 using LaserSportDataAPI.Models;
 
-
 namespace LaserSportDataAPI.Controllers
 {
-    public class MatchTeamPlayerScoresController : ApiController
+    public class EventSeriesController : ApiController
     {
-        private TeamsRepository rep = new TeamsRepository();
+        private SeriesRepository rep = new SeriesRepository();
 
-        [GET("teams")]
-        public IEnumerable<team> Get()
+        [GET("events/{eventid:int}/series")]
+        public IEnumerable<series> Get(int eventid)
         {
-            var lst = rep.Get();
+            IEnumerable<series> lst = rep.GetSeriesByEvent(eventid);
             if ((lst == null) || (lst.ToList().Count == 0))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
@@ -27,10 +26,10 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("teams/{id:int}")]
-        public team Get(int id)
+        [GET("events/{eventid:int}/series/{seriesid:int}")]
+        public series Get(int eventid, int seriesid)
         {
-            var a = rep.GetByID(id);
+            var a = rep.GetByID(seriesid);
             if (a == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
@@ -38,27 +37,30 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("teams")]
-        public team Post([FromBody]team value)
+        [POST("events/{eventid:int}/series")]
+        public series Post(int eventid, [FromBody]series value)
         {
+            value.lsevent_id = eventid;
             rep.Insert(value);
             return value;
         }
 
-        [PUT("teams/{id:int}")]
-        public void Put(int id, [FromBody]team value)
+        [PUT("events/{eventid:int}/series/{seriesid:int}")]
+        public void Put(int eventid, int seriesid, [FromBody]series value)
         {
-            int rc = rep.Delete(value);
+            value.lsevent_id = eventid;
+            value.id = seriesid;
+            int rc = rep.Update(value);
             if (rc == 0)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
         }
 
-        [DELETE("teams/{id:int}")]
-        public void Delete(int id)
+        [DELETE("events/{eventid:int}/series/{seriesid:int}")]
+        public void Delete(int eventid, int seriesid)
         {
-            int rc = rep.Delete(id);
+            int rc = rep.Delete(seriesid);
             if (rc == 0)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));

@@ -12,12 +12,12 @@ namespace LaserSportDataAPI.Models
     public class ScoreMethodRepository : GenericRepository<LaserSportDataObjects.score_method>
     {
         public ScoreMethodRepository()
-            : base("score_method")
+            : base("score_methods")
         {
         }
         public IEnumerable<LaserSportDataObjects.score_method> GetByCode(string ScoreMethodCode)
         {
-            return db.Fetch<LaserSportDataObjects.score_method>("SELECT * FROM lsdrep.score_methods WHERE code=@0", ScoreMethodCode);
+            return db.Fetch<LaserSportDataObjects.score_method>("SELECT * FROM score_methods WHERE code=@0", ScoreMethodCode);
         }
 
     }

@@ -71,6 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Simple.Data, Version=0.18.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Simple.Data.Mysql.0.18.3.2\lib\net45\Simple.Data.dll</HintPath>
@@ -204,12 +207,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\EventPackSetsController.cs" />
+    <Compile Include="Controllers\EventSeriesController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\SystemTargetTypesController.cs" />
     <Compile Include="Controllers\TargetTypesController.cs" />
     <Compile Include="Controllers\MatchPlayersController.cs" />
     <Compile Include="Controllers\EventTeamsController.cs" />
     <Compile Include="Controllers\SystemsController.cs" />
+    <Compile Include="Controllers\MatchTeamPlayerScoresController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Controllers\EventPlayersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -220,6 +226,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MatchTeamPlayerScoresRepository.cs" />
     <Compile Include="Models\PacksetsRepository.cs" />
     <Compile Include="Models\ScoreMethodRepository.cs" />
     <Compile Include="Models\SeriesRepository.cs" />

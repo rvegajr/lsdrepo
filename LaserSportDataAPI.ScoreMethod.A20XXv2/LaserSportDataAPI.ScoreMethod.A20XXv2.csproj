@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4-client\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,8 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CollectionUtilities.cs" />
+    <Compile Include="ScoreMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LaserSportDataAPI\LaserSportDataAPI.csproj">
+      <Project>{33e773a4-54d6-4e74-ae57-d66abcc43c52}</Project>
+      <Name>LaserSportDataAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LaserSportDataInterfaces\LaserSportDataAPI.Interfaces.csproj">
+      <Project>{a5897e65-6eb0-4178-92d9-220ec654589a}</Project>
+      <Name>LaserSportDataAPI.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,7 +12,7 @@ using LaserSportDataAPI.Models;
 
 namespace LaserSportDataAPI.Controllers
 {
-    public class MatchTeamPlayerScoresController : ApiController
+    public class TeamsController : ApiController
     {
         private TeamsRepository rep = new TeamsRepository();
 
