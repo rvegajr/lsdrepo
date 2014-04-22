@@ -85,21 +85,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.A20XXv2\LaserSportDataAPI.ScoreMethod.A20XXv2.csproj">
+    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.A20XXv2\SystemObjects.A20XXv2.csproj">
       <Project>{7fc26093-2e40-48c9-8d9f-21e4308a72de}</Project>
-      <Name>LaserSportDataAPI.ScoreMethod.A20XXv2</Name>
+      <Name>SystemObjects.A20XXv2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.Sample\LaserSportDataAPI.ScoreMethod.Sample.csproj">
+    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.Sample\SystemObjects.Sample.csproj">
       <Project>{6a28755a-ff4c-402b-9d33-b3a65baa8216}</Project>
-      <Name>LaserSportDataAPI.ScoreMethod.Sample</Name>
+      <Name>SystemObjects.Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LaserSportDataAPI\LaserSportDataAPI.csproj">
+    <ProjectReference Include="..\LaserSportDataAPI\API.csproj">
       <Project>{33e773a4-54d6-4e74-ae57-d66abcc43c52}</Project>
-      <Name>LaserSportDataAPI</Name>
+      <Name>API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LaserSportDataInterfaces\LaserSportDataAPI.Interfaces.csproj">
+    <ProjectReference Include="..\LaserSportDataInterfaces\Interfaces.csproj">
       <Project>{a5897e65-6eb0-4178-92d9-220ec654589a}</Project>
-      <Name>LaserSportDataAPI.Interfaces</Name>
+      <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

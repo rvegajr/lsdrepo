@@ -12,14 +12,14 @@ using LaserSportDataAPI.Models;
 
 namespace LaserSportDataAPI.Controllers
 {
-    public class TeamsController : ApiController
+    public class MatchTeamsPlayerScoresController : ApiController
     {
-        private TeamsRepository rep = new TeamsRepository();
+        MatchTeamPlayerScoresRepository rep = new MatchTeamPlayerScoresRepository();
 
-        [GET("teams")]
-        public IEnumerable<team> Get()
+        [GET("events/{event_id:int}/scores")]
+        public IEnumerable<match_team_player_score> Get(int event_id)
         {
-            var lst = rep.Get();
+            var lst = rep.GetScoresByEvent(event_id);
             if ((lst == null) || (lst.ToList().Count == 0))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
@@ -27,8 +27,8 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("teams/{id:int}")]
-        public team Get(int id)
+        [GET("scores/{id}")]
+        public match_team_player_score Get(string id)
         {
             var a = rep.GetByID(id);
             if (a == null)
@@ -38,31 +38,40 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("teams")]
-        public team Post([FromBody]team value)
+        [GET("events/{event_id:int}/matches/{match_id:int}/scores")]
+        public IEnumerable<match_team_player_score> Get(int event_id, int match_id)
         {
-            rep.Insert(value);
-            return value;
-        }
-
-        [PUT("teams/{id:int}")]
-        public void Put(int id, [FromBody]team value)
-        {
-            int rc = rep.Delete(value);
-            if (rc == 0)
+            var lst = rep.GetScoresByMatch(event_id, match_id);
+            if ((lst == null) || (lst.ToList().Count == 0))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
+            return lst;
         }
 
-        [DELETE("teams/{id:int}")]
-        public void Delete(int id)
+        [GET("events/{event_id:int}/series/{series_id:int}/scores")]
+        public IEnumerable<match_team_player_score> GetSeriesScores(int event_id, int series_id)
         {
-            int rc = rep.Delete(id);
-            if (rc == 0)
+            var lst = rep.GetScoresByEventSeries(event_id, series_id);
+            if ((lst == null) || (lst.ToList().Count == 0))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
+            return lst;
         }
+
+
+        [GET("events/{event_id:int}/matches/{match_id:int}/teams/{team_id:int}/scores")]
+        public IEnumerable<match_team_player_score> Get(int event_id, int match_id, int team_id)
+        {
+            var lst = rep.GetScoresByMatchTeam(event_id, match_id, team_id);
+            if ((lst == null) || (lst.ToList().Count == 0))
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            return lst;
+        }
+
+
     }
 }

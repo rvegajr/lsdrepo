@@ -89,6 +89,7 @@ bool IncludeViews = false;
 bool GenerateOperations = false;
 bool GenerateCommon = true;
 bool GeneratePocos = true;
+bool GenerateInterfaces = true;
 bool TrackModifiedColumns = false;
 
 

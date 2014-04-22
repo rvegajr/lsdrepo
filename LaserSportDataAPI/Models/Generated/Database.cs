@@ -29,7 +29,7 @@
 //     Schema:                 `lsdrep`
 //     Include Views:          `False`
 
-
+ 
 
 using System;
 using System.Collections.Generic;
@@ -143,7 +143,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class lsevent_player : LSREPConnDB.Record<lsevent_player>  
+    public partial class lsevent_player : LSREPConnDB.Record<lsevent_player>  , Ilsevent_player 
     {
 
 
@@ -205,7 +205,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class lsevent : LSREPConnDB.Record<lsevent>  
+    public partial class lsevent : LSREPConnDB.Record<lsevent>  , Ilsevent 
     {
 
 
@@ -255,7 +255,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class match_player_hit_detail : LSREPConnDB.Record<match_player_hit_detail>  
+    public partial class match_player_hit_detail : LSREPConnDB.Record<match_player_hit_detail>  , Imatch_player_hit_detail 
     {
 
 
@@ -299,7 +299,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class match_player_hit : LSREPConnDB.Record<match_player_hit>  
+    public partial class match_player_hit : LSREPConnDB.Record<match_player_hit>  , Imatch_player_hit 
     {
 
 
@@ -343,7 +343,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class match_player : LSREPConnDB.Record<match_player>  
+    public partial class match_player : LSREPConnDB.Record<match_player>  , Imatch_player 
     {
 
 
@@ -387,7 +387,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class match_team : LSREPConnDB.Record<match_team>  
+    public partial class match_team : LSREPConnDB.Record<match_team>  , Imatch_team 
     {
 
 
@@ -437,7 +437,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class match : LSREPConnDB.Record<match>  
+    public partial class match : LSREPConnDB.Record<match>  , Imatch 
     {
 
 
@@ -493,7 +493,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class packset_detail : LSREPConnDB.Record<packset_detail>  
+    public partial class packset_detail : LSREPConnDB.Record<packset_detail>  , Ipackset_detail 
     {
 
 
@@ -525,7 +525,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class packset : LSREPConnDB.Record<packset>  
+    public partial class packset : LSREPConnDB.Record<packset>  , Ipackset 
     {
 
 
@@ -569,7 +569,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class player : LSREPConnDB.Record<player>  
+    public partial class player : LSREPConnDB.Record<player>  , Iplayer 
     {
 
 
@@ -613,7 +613,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class score_method : LSREPConnDB.Record<score_method>  
+    public partial class score_method : LSREPConnDB.Record<score_method>  , Iscore_method 
     {
 
 
@@ -651,7 +651,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class series : LSREPConnDB.Record<series>  
+    public partial class series : LSREPConnDB.Record<series>  , Iseries 
     {
 
 
@@ -683,7 +683,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class system_metadatadef : LSREPConnDB.Record<system_metadatadef>  
+    public partial class system_metadatadef : LSREPConnDB.Record<system_metadatadef>  , Isystem_metadatadef 
     {
 
 
@@ -727,7 +727,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class system_target_type : LSREPConnDB.Record<system_target_type>  
+    public partial class system_target_type : LSREPConnDB.Record<system_target_type>  , Isystem_target_type 
     {
 
 
@@ -777,7 +777,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class system : LSREPConnDB.Record<system>  
+    public partial class system : LSREPConnDB.Record<system>  , Isystem 
     {
 
 
@@ -803,7 +803,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class target_type : LSREPConnDB.Record<target_type>  
+    public partial class target_type : LSREPConnDB.Record<target_type>  , Itarget_type 
     {
 
 
@@ -853,7 +853,7 @@ namespace LaserSportDataObjects
 
 
 	[ExplicitColumns]
-    public partial class team : LSREPConnDB.Record<team>  
+    public partial class team : LSREPConnDB.Record<team>  , Iteam 
     {
 
 
@@ -879,5 +879,141 @@ namespace LaserSportDataObjects
 
 }
 
-
-
+ 
+ 
+//Generate Interfaces
+public interface Ilsevent_player
+{
+	int id { get; set; }
+	int lsevent_id { get; set; }
+	int player_id { get; set; }
+	string alias { get; set; }
+	int? team_id { get; set; }
+	sbyte sort_order { get; set; }
+	sbyte is_captain { get; set; }
+	sbyte is_admin { get; set; }
+}
+public interface Ilsevent
+{
+	int id { get; set; }
+	string lsevent_name { get; set; }
+	DateTime? scheduled { get; set; }
+	DateTime? actual { get; set; }
+	string edit_code { get; set; }
+	int? score_method_id { get; set; }
+}
+public interface Imatch_player_hit_detail
+{
+	int id { get; set; }
+	int match_player_hit_id { get; set; }
+	int target_type_id { get; set; }
+	int hit_count { get; set; }
+	decimal? score_override { get; set; }
+}
+public interface Imatch_player_hit
+{
+	int id { get; set; }
+	int player_id { get; set; }
+	decimal total_hits { get; set; }
+	decimal front { get; set; }
+	decimal back { get; set; }
+}
+public interface Imatch_player
+{
+	int id { get; set; }
+	int match_id { get; set; }
+	int player_id { get; set; }
+	decimal? score { get; set; }
+	int? packset_detail_id { get; set; }
+}
+public interface Imatch_team
+{
+	int id { get; set; }
+	int match_id { get; set; }
+	int team_id { get; set; }
+	decimal? score_override { get; set; }
+	sbyte sort_order { get; set; }
+	int? packset_id { get; set; }
+}
+public interface Imatch
+{
+	int id { get; set; }
+	int lsevent_id { get; set; }
+	string guid { get; set; }
+	DateTime? scheduled { get; set; }
+	DateTime? actual { get; set; }
+	int? system_id { get; set; }
+	int? series_id { get; set; }
+}
+public interface Ipackset_detail
+{
+	int id { get; set; }
+	int packset_id { get; set; }
+	string pack_id { get; set; }
+}
+public interface Ipackset
+{
+	int id { get; set; }
+	int lsevent_id { get; set; }
+	int? series_id { get; set; }
+	string descr { get; set; }
+	string color { get; set; }
+}
+public interface Iplayer
+{
+	int id { get; set; }
+	string code_name { get; set; }
+	string first_name { get; set; }
+	string last_name { get; set; }
+	sbyte is_admin { get; set; }
+}
+public interface Iscore_method
+{
+	int id { get; set; }
+	string name { get; set; }
+	string proc { get; set; }
+	string code { get; set; }
+}
+public interface Iseries
+{
+	int id { get; set; }
+	int lsevent_id { get; set; }
+	string name { get; set; }
+}
+public interface Isystem_metadatadef
+{
+	int id { get; set; }
+	int system_id { get; set; }
+	string field_name { get; set; }
+	sbyte sort_order { get; set; }
+	sbyte? decimal_places { get; set; }
+}
+public interface Isystem_target_type
+{
+	int id { get; set; }
+	int system_id { get; set; }
+	int target_type_id { get; set; }
+	decimal? hit_for_point_value { get; set; }
+	decimal? hit_against_point_value { get; set; }
+	int sort_order { get; set; }
+}
+public interface Isystem
+{
+	int id { get; set; }
+	string system_name { get; set; }
+}
+public interface Itarget_type
+{
+	int id { get; set; }
+	string code { get; set; }
+	string name { get; set; }
+	string descr { get; set; }
+	int sort_order { get; set; }
+	decimal? point_value { get; set; }
+}
+public interface Iteam
+{
+	int id { get; set; }
+	int lsevent_id { get; set; }
+	string team_name { get; set; }
+}

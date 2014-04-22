@@ -37,11 +37,23 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players/{playerid:int}")]
+        [GET("events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
         public match_player Get(int eventid, int matchid, int playerid)
         {
             var a = rep.Get(eventid, matchid, playerid);
             if (a == null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            return a;
+        }
+
+        [GET("events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players/{playerid:int}")]
+        public match_player Get(int eventid, int matchid, int teamid, int playerid)
+        {
+            var a = rep.Get(eventid, matchid, playerid);
+            
+            if ((a == null) || ( !a.team_id.Equals(teamid) ))
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }

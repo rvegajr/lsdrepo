@@ -6,48 +6,63 @@ using System.Data.Entity;
 using LaserSportDataObjects;
 using System.Linq.Expressions;
 using LaserSportDataAPI.DAL;
-using LaserSportDataObjects;
 using PetaPoco;
-
+namespace LaserSportDataAPI
+{
+    [TableName("vw_match_team_player_scores")]
+    [PrimaryKey("id")]
+    [ExplicitColumns]
+    public partial class match_team_player_score : LSREPConnDB.Record<match_team_player_score>
+    {
+        [Column]
+        public string id { get; set; }
+        [Column]
+        public int lsevent_id { get; set; }
+        [Column]
+        public int match_id { get; set; }
+        [Column]
+        public int team_id { get; set; }
+        [Column]
+        public int series_id { get; set; }
+        [Column]
+        public string guid { get; set; }
+        [Column]
+        public DateTime? scheduled { get; set; }
+        [Column]
+        public decimal? player_score_sum { get; set; }
+        [Column]
+        public decimal? score_override { get; set; }
+    }
+}
 namespace LaserSportDataAPI.Models
 {
-    public class MatchTeam : team
-    {
-        [Column]
-        public decimal score_override { get; set; }
-        [Column]
-        public int sort_order { get; set; }
-    }
 
-    public class MatchTeamsRepository : GenericRepository<match_team>
+    public class MatchTeamPlayerScoresRepository : GenericRepositoryReadOnly<match_team_player_score>
     {
-        public MatchTeamsRepository()
-            : base("match_teams")
+        public MatchTeamPlayerScoresRepository()
+            : base("vw_match_team_player_scores")
         {
         }
-        protected string _SQL2 = @"SELECT
-  mt.*,
-  t.lsevent_id,
-  t.team_name
-FROM 
-  match_teams mt
-  INNER JOIN teams t
-    ON t.id = mt.team_id 
-";
-        public virtual IEnumerable<MatchTeam> GetTeamsByMatch(int matchid)
+
+        public virtual IEnumerable<match_team_player_score> GetScoresByEvent(int eventid)
         {
-            var lst = db.Fetch<MatchTeam>(this._SQL2 + " WHERE mt.match_id=@0", matchid);
+            var lst = db.Fetch<match_team_player_score>("SELECT * FROM vw_match_team_player_scores WHERE lsevent_id = @0", eventid);
             return lst;
         }
-
-        public virtual MatchTeam GetMatchTeamObject(int matchid, int teamid)
+        public virtual IEnumerable<match_team_player_score> GetScoresByEventSeries(int eventid, int seriesid)
         {
-            return db.FirstOrDefault<MatchTeam>(this._SQL2 + " WHERE mt.match_id=@0 AND mt.team_id=@1 ", matchid, teamid);
+            var lst = db.Fetch<match_team_player_score>("SELECT * FROM vw_match_team_player_scores WHERE lsevent_id = @0 AND series_id=@1", eventid, seriesid);
+            return lst;
         }
-
-        public virtual match_team GetMatchTeam(int matchid, int teamid)
+        public virtual IEnumerable<match_team_player_score> GetScoresByMatch(int eventid, int matchid)
         {
-            return db.FirstOrDefault<match_team>(this._SQL + " WHERE match_id=@0 AND team_id=@1 ", matchid, teamid);
+            var lst = db.Fetch<match_team_player_score>("SELECT * FROM vw_match_team_player_scores WHERE lsevent_id = @0 AND match_id = @1", eventid, matchid);
+            return lst;
+        }
+        public virtual IEnumerable<match_team_player_score> GetScoresByMatchTeam(int eventid, int matchid, int teamId)
+        {
+            var lst = db.Fetch<match_team_player_score>("SELECT * FROM vw_match_team_player_scores WHERE lsevent_id = @0 AND match_id = @1 AND team_id = @2", eventid, matchid, teamId);
+            return lst;
         }
 
     }

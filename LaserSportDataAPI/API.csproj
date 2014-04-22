@@ -227,10 +227,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\MatchTeamPlayerScoresRepository.cs" />
-    <Compile Include="Models\PacksetsRepository.cs" />
+    <Compile Include="Models\PlayersRepository.cs" />
     <Compile Include="Models\ScoreMethodRepository.cs" />
     <Compile Include="Models\SeriesRepository.cs" />
-    <Compile Include="Models\PlayersRepository.cs" />
+    <Compile Include="Models\PacksetsRepository.cs" />
     <Compile Include="Models\SystemTargetTypesRepository.cs" />
     <Compile Include="Models\TargetTypesRepository.cs" />
     <Compile Include="Models\MatchPlayerHitDetailsRepository.cs" />
@@ -385,13 +385,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.Sample\LaserSportDataAPI.ScoreMethod.Sample.csproj">
+    <ProjectReference Include="..\LaserSportDataAPI.ScoreMethod.Sample\SystemObjects.Sample.csproj">
       <Project>{6a28755a-ff4c-402b-9d33-b3a65baa8216}</Project>
-      <Name>LaserSportDataAPI.ScoreMethod.Sample</Name>
+      <Name>SystemObjects.Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LaserSportDataInterfaces\LaserSportDataAPI.Interfaces.csproj">
+    <ProjectReference Include="..\LaserSportDataInterfaces\Interfaces.csproj">
       <Project>{a5897e65-6eb0-4178-92d9-220ec654589a}</Project>
-      <Name>LaserSportDataAPI.Interfaces</Name>
+      <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

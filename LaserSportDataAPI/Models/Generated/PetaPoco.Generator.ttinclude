@@ -150,7 +150,7 @@ foreach(Table tbl in from t in tables where !t.Ignore select t)
 	[PrimaryKey("<#=tbl.PK.Name#>", autoIncrement=false)]
 <# } #>
 	[ExplicitColumns]
-    public partial class <#=tbl.ClassName#> <# if (GenerateOperations) { #>: <#=RepoName#>.Record<<#=tbl.ClassName#>> <# } #> 
+    public partial class <#=tbl.ClassName#> <# if (GenerateOperations) { #>: <#=RepoName#>.Record<<#=tbl.ClassName#>> <# } #> <# if (GenerateInterfaces) { #>, I<#=tbl.ClassName#> <# } #>
     {
 <#
 foreach(Column col in from c in tbl.Columns where !c.Ignore select c)

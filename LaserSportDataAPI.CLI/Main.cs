@@ -7,6 +7,7 @@ using System.IO;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using LaserSportDataAPI.SystemObjects.A20XXv2;
 namespace LaserSportDataAPI.CLI
 {
     class LaserSportDataAPICLI : ConsoleBase
@@ -21,6 +22,7 @@ namespace LaserSportDataAPI.CLI
             Console_WriteLine(@"  /a:xlsimport /p:<XLS FILE PATH> /e:<Event Meta Data>");
             // /a:xlsimport /e:"Armageddon 2099|A2099US|6/21/2013 12:00:00 AM|a20xx_v2" /p:"C:\Users\Ricky\Documents\Projects\a20xx\lsdrepo\xls"
             Console_WriteLine(@"  /a:evtrestest /e:<event id to test>");  // /a:evtrestest /e:8
+            Console_WriteLine(@"  /a:webobjtest /e:<event id to test> /u:""http://lsdrep.api.url"" ");  // /a:webobjtest /e:8 /u:"http://localhost:8000/e" 
         }
 
         protected void ProcessEventResultTest(int EventId)
@@ -29,6 +31,13 @@ namespace LaserSportDataAPI.CLI
             resTest.OnStatusChange = StatusChange;
             resTest.EventResultRest(EventId);
         }
+
+        protected void ProcessWebObjectsTest(int EventId, string URL)
+        {
+            var resEvent = LSEvent.Get(URL, EventId);
+        }
+
+        
         protected void ProcessInputExcel()
         {
             string sNewFileName = "";
@@ -61,6 +70,7 @@ namespace LaserSportDataAPI.CLI
 
         private string Action = "";
         private string EventMetaData = "";
+        private string URL = "";
         private int EventId = int.MinValue;
         private string Path = "";
         protected override void RunEvent()
@@ -81,6 +91,16 @@ namespace LaserSportDataAPI.CLI
                         ProcessEventResultTest(EventId);
                     }
                     break;
+                case "webobjtest":
+                    if (EventId.Equals(int.MinValue))
+                    {
+                        Console_WriteLine("/e was not set to a valid numeric,  ending utility.");
+                    }
+                    else
+                    {
+                        ProcessWebObjectsTest(EventId, URL);
+                    }
+                    break;
                 default:
                     Console_WriteLine("Action '" + Action + "' is unknown, ending Utility.");
                     break;
@@ -92,6 +112,7 @@ namespace LaserSportDataAPI.CLI
             Exists("a", "action", out Action);
             Exists("p", "path", out Path);
             Exists("e", "event", out EventMetaData);
+            Exists("u", "url", out URL);
             if (!int.TryParse(EventMetaData, out EventId))
             {
                 EventId = int.MinValue;

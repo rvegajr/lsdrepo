@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserSportDataAPI", "LaserSportDataAPI\LaserSportDataAPI.csproj", "{33E773A4-54D6-4E74-AE57-D66ABCC43C52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "LaserSportDataAPI\API.csproj", "{33E773A4-54D6-4E74-AE57-D66ABCC43C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserSportDataAPI.Interfaces", "LaserSportDataInterfaces\LaserSportDataAPI.Interfaces.csproj", "{A5897E65-6EB0-4178-92D9-220EC654589A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "LaserSportDataInterfaces\Interfaces.csproj", "{A5897E65-6EB0-4178-92D9-220EC654589A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserSportDataAPI.ScoreMethod.Sample", "LaserSportDataAPI.ScoreMethod.Sample\LaserSportDataAPI.ScoreMethod.Sample.csproj", "{6A28755A-FF4C-402B-9D33-B3A65BAA8216}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemObjects.Sample", "LaserSportDataAPI.ScoreMethod.Sample\SystemObjects.Sample.csproj", "{6A28755A-FF4C-402B-9D33-B3A65BAA8216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserSportDataAPI.ScoreMethod.A20XXv2", "LaserSportDataAPI.ScoreMethod.A20XXv2\LaserSportDataAPI.ScoreMethod.A20XXv2.csproj", "{7FC26093-2E40-48C9-8D9F-21E4308A72DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemObjects.A20XXv2", "LaserSportDataAPI.ScoreMethod.A20XXv2\SystemObjects.A20XXv2.csproj", "{7FC26093-2E40-48C9-8D9F-21E4308A72DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserSportDataAPI.CLI", "LaserSportDataAPI.CLI\LaserSportDataAPI.CLI.csproj", "{0F7722FF-64A1-4E08-848D-C060B1D2C292}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLI", "LaserSportDataAPI.CLI\CLI.csproj", "{0F7722FF-64A1-4E08-848D-C060B1D2C292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

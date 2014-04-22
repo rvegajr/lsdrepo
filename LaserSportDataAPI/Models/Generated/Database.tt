@@ -11,10 +11,11 @@
 	ClassPrefix = ""; 
 	ClassSuffix = "";
 	TrackModifiedColumns = false;
+	GenerateInterfaces = true;
 
     // Read schema 
 	var tables = LoadTables();   
-
+	 
 	//tables["event"].ClassName = "lsevent";					// To change the class name of a table
 
 /*
@@ -29,7 +30,19 @@
 	// Generate output
 	if (tables.Count>0) 
 	{
-#>
+#> 
 <#@ include file="PetaPoco.Generator.ttinclude" #>
+<# } #> 
+ 
+<# if (GenerateInterfaces) { #>
+//Generate Interfaces
+<# foreach(Table tbl in from t in tables where !t.Ignore select t) #>
+<# {  #>
+public interface I<#=tbl.ClassName#>
+{
+<# foreach ( Column col in from c in tbl.Columns where !c.Ignore select c) { #>
+	<#=col.PropertyType #><#=CheckNullable(col)#> <#=col.PropertyName #> { get; set; }
 <# } #>
-
+}
+<# } //foreach(Table #>
+<# } //if (GenerateInterfaces)  #>
