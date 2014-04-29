@@ -9,6 +9,12 @@ using RestSharp;
 
 namespace LaserSportDataAPI.SystemObjects.A20XXv2
 {
+    public abstract class WebObjectResult : WebObject
+    {
+        public int? Rank { get; set; }
+        public int? TournamentPoints { get; set; }
+        public int? RankPeers { get; set; }  //Other rank that share this rank (used to check for ties)... if this is 1, then there is no tie, anything greater than 1 is a tie
+    }
     public abstract class WebObject
     {
         public OnChangeDelegate OnChange { get; set; }
@@ -82,13 +88,54 @@ namespace LaserSportDataAPI.SystemObjects.A20XXv2
                             }
                             newMatch.Teams.Add(team);
                         }
-                        newSeries.Matches.Add(newMatch);
+                        newSeries.Matches.Add(AddRankToTeamsInMatch(newMatch));
                     }
                     newEvent.Series.Add(newSeries);
                 }
                 //((Ilsevent)Event).CopyTo<Ilsevent>(newEvent);
             }
             return newEvent;
+        }
+        protected static LSMatch AddRankToTeamsInMatch(LSMatch matchWithTeamsToRank)
+        {
+            var teamPlayersInMatchList =
+                from aTeam in matchWithTeamsToRank.Teams
+                orderby aTeam.team_score descending
+                select aTeam;
+            decimal? lastScore = 0.0M;
+            int rank = 1;
+            int count = 1;
+            int rankPeers = 0;
+            foreach (LSTeam aTeam in teamPlayersInMatchList)
+            {
+                if (!(lastScore.Equals(aTeam.team_score))) {
+                    rank = count;
+                    if (rankPeers > 1) { 
+                        foreach (LSTeam aTeamSameScore in teamPlayersInMatchList.Where(s => s.team_score.Equals(lastScore)))
+                        {
+                            aTeamSameScore.RankPeers = rankPeers;
+                        }
+                    }
+                    rankPeers = 0;
+                }
+                else
+                {
+                    rankPeers++;
+                    lastScore = aTeam.team_score;
+                }
+                aTeam.Rank = rank;
+                aTeam.RankPeers = rankPeers;
+                count++;
+            }
+            //matchWithTeamsToRank.Teams = matchWithTeamsToRank.Teams.OrderByDescending(o => o.Rank);
+            matchWithTeamsToRank.Teams.Sort(
+                delegate(LSTeam p1, LSTeam p2)
+                {
+                    
+                    return ((int)p1.Rank).CompareTo((int)p2.Rank);
+                }
+            );
+            return matchWithTeamsToRank;
         }
         public List<LSSeries> Series { get; set; }
         public LSEvent()
@@ -154,7 +201,7 @@ namespace LaserSportDataAPI.SystemObjects.A20XXv2
         public string edit_code  { get; set; }
         public int? score_method_id  { get; set; }
     }
-    public class LSPlayer : WebObject, Iplayer
+    public class LSPlayer : WebObjectResult, Iplayer
     {
         public LSPlayer()
         {
@@ -173,7 +220,7 @@ namespace LaserSportDataAPI.SystemObjects.A20XXv2
 
     }
 
-    public class LSTeam : WebObject, Iteam
+    public class LSTeam : WebObjectResult, Iteam
     {
         public List<LSPlayer> Players { get; set; }
         public LSTeam()
