@@ -176,3 +176,5 @@ pip-log.txt
 .DS_Store
 HUBAPIService/Properties/Resources.Designer.cs
 aa.hub.renderer/css/2014benefits/js/app.js
+Web.config
+Web.Release.config
