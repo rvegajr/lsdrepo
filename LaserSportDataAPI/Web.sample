@@ -9,7 +9,7 @@
     <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
   </configSections>
   <connectionStrings>
-    <add name="LSREPConn" providerName="MySql.Data.MySqlClient" connectionString="server=ABYSSOSX;user id=lsdrepuser;password=root;persistsecurityinfo=True;database=lsdrep" />
+    <add name="LSREPConn" providerName="MySql.Data.MySqlClient" connectionString="server=SERVER_NAME;user id=USER_NAME;password=PASSWORD_HERE;persistsecurityinfo=True;database=lsdrep" />
   </connectionStrings>
   <appSettings>
     <add key="webpages:Version" value="2.0.0.0" />
