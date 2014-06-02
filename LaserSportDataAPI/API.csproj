@@ -222,6 +222,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="Filters\AuthFilters.cs" />
     <Compile Include="Filters\ExceptionFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -326,6 +327,7 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\HelpPage\Views\Web.config" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

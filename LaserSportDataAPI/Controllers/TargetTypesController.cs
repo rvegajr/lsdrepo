@@ -38,6 +38,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [POST("targets")]
         public target_type Post([FromBody]target_type value)
         {
@@ -45,6 +46,7 @@ namespace LaserSportDataAPI.Controllers
             return value;
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [PUT("targets/{id:int}")]
         public void Put(int id, [FromBody]target_type value)
         {
@@ -55,6 +57,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [DELETE("targets/{id:int}")]
         public void Delete(int id)
         {

@@ -8,6 +8,7 @@ using Simple.Data;
 using AttributeRouting.Web.Http;
 using LaserSportDataAPI.Models;
 using LaserSportDataObjects;
+
 namespace LaserSportDataAPI.Controllers
 {
     public class EventsController : ApiController
@@ -35,12 +36,14 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [POST("events")]
         public lsevent Post([FromBody]lsevent value)
         {
             return rep.Insert(value);
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [PUT("events/{id:int}")]
         public void Put(int id, [FromBody]lsevent value)
         {
@@ -51,6 +54,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
+        [LaserSportDataAPI.Filters.BasicAuthentication]
         [DELETE("events/{id:int}")]
         public void Delete(int id)
         {
