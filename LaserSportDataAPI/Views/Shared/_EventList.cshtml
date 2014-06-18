@@ -1,0 +1,7 @@
+﻿<script src="/scripts/Events.js"></script>
+<ul class="submenu" data-bind="foreach: events">
+    <li class="">
+        <a href="#" onclick="GoToEvent(this);" class="menu-event-link" data-bind="attr: { 'data-id': $data.id }"><i class="menu-icon fa fa-caret-right"></i><span data-bind="text: $data.lsevent_name"></span></a>
+        <b class="arrow"></b>
+    </li>
+</ul>

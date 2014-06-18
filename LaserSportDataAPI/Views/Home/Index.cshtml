@@ -1,6 +1,9 @@
-﻿<div id="body">
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+<div id="col-md-4 col-md-offset-4">
     <section class="featured">
-        <div class="content-wrapper">
+        <div class="well page-header">
             <hgroup class="title">
                 <h1>Welcome to ASP.NET Web API!</h1>
                 <h2>Modify the code in this template to jump-start your ASP.NET Web API development.</h2>
@@ -21,7 +24,7 @@
     <section class="content-wrapper main-content clear-fix">
         <h3>We suggest the following steps:</h3>
         <ol class="round">
-            <li class="one">
+            <li class="col-lg-4">
                 <h5>Getting Started</h5>
                 ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
                 a broad range of clients, including browsers and mobile devices. ASP.NET Web API
@@ -29,12 +32,12 @@
                 <a href="http://go.microsoft.com/fwlink/?LinkId=245160">Learn more…</a>
             </li>
 
-            <li class="two">
+            <li class="col-lg-4">
                 <h5>Add NuGet packages and jump-start your coding</h5>
                 NuGet makes it easy to install and update free libraries and tools.
                 <a href="http://go.microsoft.com/fwlink/?LinkId=245161">Learn more…</a>
             </li>
-            <li class="three">
+            <li class="col-lg-4">
                 <h5>Find Web Hosting</h5>
                 You can easily find a web hosting company that offers the right mix of features
                 and price for your applications.

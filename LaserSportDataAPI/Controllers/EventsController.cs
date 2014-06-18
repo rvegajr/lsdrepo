@@ -14,7 +14,7 @@ namespace LaserSportDataAPI.Controllers
     public class EventsController : ApiController
     {
         private EventsRepository rep = new EventsRepository();
-        [GET("events")]
+        [GET("api/v1/events")]
         public IEnumerable<lsevent> Get()
         {
             IEnumerable<lsevent> lst = rep.Get();
@@ -25,7 +25,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{id:int}")]
+        [GET("api/v1/events/{id:int}")]
         public lsevent Get(int id)
         {
             var a = rep.GetByID(id);
@@ -37,14 +37,14 @@ namespace LaserSportDataAPI.Controllers
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [POST("events")]
+        [POST("api/v1/events")]
         public lsevent Post([FromBody]lsevent value)
         {
             return rep.Insert(value);
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [PUT("events/{id:int}")]
+        [PUT("api/v1/events/{id:int}")]
         public void Put(int id, [FromBody]lsevent value)
         {
             int rc = rep.Update(value);
@@ -55,7 +55,7 @@ namespace LaserSportDataAPI.Controllers
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [DELETE("events/{id:int}")]
+        [DELETE("api/v1/events/{id:int}")]
         public void Delete(int id)
         {
             int rc = rep.Delete(id);

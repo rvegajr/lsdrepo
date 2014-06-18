@@ -15,25 +15,26 @@ namespace LaserSportDataAPI.Controllers
 {
     public class ResultsController : ApiController
     {
-        
-        [GET("events/{eventid:int}/results/summary")]
+
+        [GET("api/v1/events/{eventid:int}/results/summary")]
         public IEventSummary Get(int eventid)
         {
             var res = ScoreMethodInstance(eventid);
             return res.GetEventSummary(eventid, 0);
         }
-        [GET("events/{eventid:int}/results/summary/")]
-        [GET("events/{eventid:int}/results/summary/series/{seriesid:int}")]
+        [GET("api/v1/events/{eventid:int}/results/summary/")]
+        [GET("api/v1/events/{eventid:int}/results/summary/series/{seriesid:int}")]
 
-        [GET("events/{eventid:int}/results/summary/games")]
-        [GET("events/{eventid:int}/results/summary/games/details/")]
-        [GET("events/{eventid:int}/results/summary/{seriesid:int}/games")]
-        [GET("events/{eventid:int}/results/summary/{seriesid:int}/games")]
+        [GET("api/v1/events/{eventid:int}/results/summary/games")]
+        [GET("api/v1/events/{eventid:int}/results/summary/games/details/")]
+        [GET("api/v1/events/{eventid:int}/results/summary/{seriesid:int}/games")]
+        [GET("api/v1/events/{eventid:int}/results/summary/{seriesid:int}/games")]
 
         private IScoreMethod ScoreMethodInstance(int evt)
         {
             string sClassName = "ScoreMethod";
             string sAssemblyName = "";
+            string sObjectName = "";
             try
             {
                 EventsRepository oevtrep = new EventsRepository();
@@ -42,19 +43,19 @@ namespace LaserSportDataAPI.Controllers
                 score_method osm = ismrep.GetByID(oevt.score_method_id);
                 sAssemblyName = osm.proc;
                 Assembly asmCurrent = Assembly.Load(new AssemblyName(sAssemblyName));
-                sAssemblyName = osm.proc + "." + sClassName;
-                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sClassName);
+                sObjectName = osm.proc + "." + sClassName;
+                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
                 if (inst==null) {
-                    throw new Exception("Could not create an instance of class " + sClassName);
+                    throw new Exception("Could not create an instance of class " + sObjectName);
                 }
                 return inst;
             }
             catch (Exception ex)
             {
-                sAssemblyName = "LaserSportDataAPI.ScoreMethod.Sample";
-                sClassName = sAssemblyName + ".ScoreMethod";
+                sAssemblyName = "LaserSportDataAPI.SystemObjects.Sample";
+                sObjectName = sAssemblyName + "." + sClassName;
                 Assembly asmCurrent = Assembly.Load(new AssemblyName(sAssemblyName));
-                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sClassName);
+                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
                 return inst;
                 //return null;
             }

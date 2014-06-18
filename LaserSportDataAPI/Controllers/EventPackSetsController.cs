@@ -15,7 +15,7 @@ namespace LaserSportDataAPI.Controllers
     {
         private PacksetsRepository rep = new PacksetsRepository();
 
-        [GET("events/{eventid:int}/packsets")]
+        [GET("api/v1/events/{eventid:int}/packsets")]
         public IEnumerable<packset> Get(int eventid)
         {
             IEnumerable<packset> lst = rep.GetPacksetsByEvent(eventid);
@@ -26,7 +26,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/packsets/{packsetid:int}")]
+        [GET("api/v1/events/{eventid:int}/packsets/{packsetid:int}")]
         public packset Get(int eventid, int packsetid)
         {
             var a = rep.GetByID(packsetid);
@@ -37,7 +37,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("events/{eventid:int}/packsets")]
+        [POST("api/v1/events/{eventid:int}/packsets")]
         public packset Post(int eventid, [FromBody]packset value)
         {
             value.lsevent_id = eventid;
@@ -45,7 +45,7 @@ namespace LaserSportDataAPI.Controllers
             return value;
         }
 
-        [PUT("events/{eventid:int}/packsets/{packsetid:int}")]
+        [PUT("api/v1/events/{eventid:int}/packsets/{packsetid:int}")]
         public void Put(int eventid, int packsetid, [FromBody]packset value)
         {
             value.lsevent_id = eventid;
@@ -57,7 +57,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("events/{eventid:int}/packsets/{packsetid:int}")]
+        [DELETE("api/v1/events/{eventid:int}/packsets/{packsetid:int}")]
         public void Delete(int eventid, int packsetid)
         {
             int rc = rep.Delete(packsetid);

@@ -16,7 +16,7 @@ namespace LaserSportDataAPI.Controllers
     {
         private TargetTypesRepository rep = new TargetTypesRepository();
 
-        [GET("targets")]
+        [GET("api/v1/targets")]
         public IEnumerable<target_type> Get()
         {
             var lst = rep.Get();
@@ -27,7 +27,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("targets/{id:int}")]
+        [GET("api/v1/targets/{id:int}")]
         public target_type Get(int id)
         {
             var a = rep.GetByID(id);
@@ -39,7 +39,7 @@ namespace LaserSportDataAPI.Controllers
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [POST("targets")]
+        [POST("api/v1/targets")]
         public target_type Post([FromBody]target_type value)
         {
             rep.Insert(value);
@@ -47,7 +47,7 @@ namespace LaserSportDataAPI.Controllers
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [PUT("targets/{id:int}")]
+        [PUT("api/v1/targets/{id:int}")]
         public void Put(int id, [FromBody]target_type value)
         {
             int rc = rep.Delete(value);
@@ -58,7 +58,7 @@ namespace LaserSportDataAPI.Controllers
         }
 
         [LaserSportDataAPI.Filters.BasicAuthentication]
-        [DELETE("targets/{id:int}")]
+        [DELETE("api/v1/targets/{id:int}")]
         public void Delete(int id)
         {
             int rc = rep.Delete(id);

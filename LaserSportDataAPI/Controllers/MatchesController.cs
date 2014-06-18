@@ -16,7 +16,7 @@ namespace LaserSportDataAPI.Controllers
         private MatchesRepository rep = new MatchesRepository();
         private MatchTeamsRepository repmt = new MatchTeamsRepository();
 
-        [GET("events/{eventid:int}/matches")]
+        [GET("api/v1/events/{eventid:int}/matches")]
         public IEnumerable<match> Get(int eventid)
         {
             IEnumerable<match> lst = rep.GetMatchesByEvent(eventid);
@@ -27,7 +27,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}")]
         public match Get(int eventid, int matchid)
         {
             var a = rep.GetMatchByEvent(eventid, matchid);
@@ -38,7 +38,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/teams")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/teams")]
         public IEnumerable<MatchTeam> GetMatchTeams(int eventid, int matchid)
         {
             IEnumerable<MatchTeam> lst = repmt.GetTeamsByMatch(matchid);
@@ -49,13 +49,13 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}")]
         public MatchTeam GetMatchTeam(int eventid, int matchid, int teamid)
         {
             return repmt.GetMatchTeamObject(matchid, teamid);
         }
 
-        [POST("events/{eventid:int}/matches")]
+        [POST("api/v1/events/{eventid:int}/matches")]
         public match Post(int eventid, [FromBody]match value)
         {
             value.lsevent_id = eventid;
@@ -63,7 +63,7 @@ namespace LaserSportDataAPI.Controllers
             return value;
         }
 
-        [PUT("events/{eventid:int}/matches/{matchid:int}")]
+        [PUT("api/v1/events/{eventid:int}/matches/{matchid:int}")]
         public void Put(int eventid, int matchid, [FromBody]match value)
         {
             value.lsevent_id = eventid;
@@ -75,7 +75,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("events/{eventid:int}/matches/{matchid:int}")]
+        [DELETE("api/v1/events/{eventid:int}/matches/{matchid:int}")]
         public void Delete(int eventid, int matchid)
         {
             int rc = rep.Delete(matchid);

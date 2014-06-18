@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Event";
+}
+<ul id="view-products" data-bind="foreach: events">
+    <li>
+        <div>
+            <div class="item">ID</div> <span data-bind="text: $data.Id"></span>
+        </div>
+        <div>
+            <div class="item">Event Name</div>
+            <input type="text" data-bind="value: $data.lsevent_name" />
+        </div>
+        <div>
+            <div class="item">Scheduled</div>
+            <input type="text" data-bind="value: $data.scheduled" />
+        </div>
+    </li>
+</ul>
+<script src="scripts/Events.js"></script>

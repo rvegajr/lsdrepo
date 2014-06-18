@@ -15,7 +15,7 @@ namespace LaserSportDataAPI.Controllers
     {
         EventPlayersRepository rep = new EventPlayersRepository();
 
-        [GET("events/{eventid:int}/players")]
+        [GET("api/v1/events/{eventid:int}/players")]
         public IEnumerable<EventPlayer> Get(int eventid)
         {
             IEnumerable<EventPlayer> lst = rep.GetPlayersByEvent(eventid);
@@ -26,7 +26,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/teams/{teamid:int}/players")]
+        [GET("api/v1/events/{eventid:int}/teams/{teamid:int}/players")]
         public IEnumerable<EventPlayer> GetPlayersForTeam(int eventid, int teamid)
         {
             IEnumerable<EventPlayer> lst = rep.GetPlayersByEventAndTeam(eventid, teamid);
@@ -37,8 +37,8 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/players/{playerid:int}")]
-        [GET("events/{eventid:int}/teams/{teamid:int}/players/{playerid:int}")]
+        [GET("api/v1/events/{eventid:int}/players/{playerid:int}")]
+        [GET("api/v1/events/{eventid:int}/teams/{teamid:int}/players/{playerid:int}")]
         public EventPlayer Get(int eventid, int playerid)
         {
             var a = rep.GetPlayerByEvent(eventid, playerid);
@@ -49,13 +49,13 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("events/{eventid:int}/players")]
+        [POST("api/v1/events/{eventid:int}/players")]
         public lsevent_player Post([FromBody]lsevent_player value)
         {
             return rep.Insert(value);
         }
 
-        [PUT("events/{eventid:int}/players/{playerid:int}")]
+        [PUT("api/v1/events/{eventid:int}/players/{playerid:int}")]
         public void Put(int eventid, int playerid, [FromBody]lsevent_player value)
         {
             int rc = rep.Update(value);
@@ -65,7 +65,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("events/{eventid:int}/players/{playerid:int}")]
+        [DELETE("api/v1/events/{eventid:int}/players/{playerid:int}")]
         public void Delete(int eventid, int playerid)
         {
             int rc = rep.Delete(playerid);

@@ -7,17 +7,17 @@ namespace LaserSportDataAPI.ScoreMethod.Sample
 {
     public class ScoreMethod : IScoreMethod
     {
-        public IEventSummary GetEventSummary(int lsevent_id, int series_id)
+         IEventSummary IScoreMethod.GetEventSummary(int lsevent_id, int series_id)
         {
             return GenSampleEvents(lsevent_id, series_id);
         }
 
-        public IEventMatchSummary GetMatchSummary(int lsevent_id, int series_id)
+         IEventMatchSummary IScoreMethod.GetMatchSummary(int lsevent_id, int series_id)
         {
             throw new NotImplementedException();
         }
 
-        public IMatchDetails GetMatchDetails(int lsevent_id, int series_id)
+         IMatchDetails IScoreMethod.GetMatchDetails(int lsevent_id, int series_id)
         {
             throw new NotImplementedException();
         }
@@ -51,7 +51,7 @@ namespace LaserSportDataAPI.ScoreMethod.Sample
         }
 
         private string url = "";
-        public string Url
+         string IScoreMethod.Url
         {
             get
             {
@@ -62,6 +62,5 @@ namespace LaserSportDataAPI.ScoreMethod.Sample
                 url = value;
             }
         }
-
     }
 }

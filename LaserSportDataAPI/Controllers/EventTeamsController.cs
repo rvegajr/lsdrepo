@@ -15,7 +15,7 @@ namespace LaserSportDataAPI.Controllers
     {
         private TeamsRepository rep = new TeamsRepository();
 
-        [GET("events/{eventid:int}/teams")]
+        [GET("api/v1/events/{eventid:int}/teams")]
         public IEnumerable<team> Get(int eventid)
         {
             IEnumerable<team> lst = rep.GetTeamsByEvent(eventid);
@@ -26,7 +26,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/teams/{teamid:int}")]
+        [GET("api/v1/events/{eventid:int}/teams/{teamid:int}")]
         public team Get(int eventid, int teamid)
         {
             var a = rep.GetTeamByEvent(eventid, teamid);
@@ -37,7 +37,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("events/{eventid:int}/teams")]
+        [POST("api/v1/events/{eventid:int}/teams")]
         public team Post(int eventid, [FromBody]team value)
         {
             value.lsevent_id = eventid;
@@ -45,7 +45,7 @@ namespace LaserSportDataAPI.Controllers
             return value;
         }
 
-        [PUT("events/{eventid:int}/teams/{teamid:int}")]
+        [PUT("api/v1/events/{eventid:int}/teams/{teamid:int}")]
         public void Put(int eventid, int teamid, [FromBody]team value)
         {
             value.lsevent_id = eventid;
@@ -57,7 +57,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("events/{eventid:int}/teams/{teamid:int}")]
+        [DELETE("api/v1/events/{eventid:int}/teams/{teamid:int}")]
         public void Delete(int eventid, int teamid)
         {
             int rc = rep.Delete(teamid);

@@ -16,7 +16,7 @@ namespace LaserSportDataAPI.Controllers
     {
         private TeamsRepository rep = new TeamsRepository();
 
-        [GET("teams")]
+        [GET("api/v1/teams")]
         public IEnumerable<team> Get()
         {
             var lst = rep.Get();
@@ -27,7 +27,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("teams/{id:int}")]
+        [GET("api/v1/teams/{id:int}")]
         public team Get(int id)
         {
             var a = rep.GetByID(id);
@@ -38,14 +38,14 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("teams")]
+        [POST("api/v1/teams")]
         public team Post([FromBody]team value)
         {
             rep.Insert(value);
             return value;
         }
 
-        [PUT("teams/{id:int}")]
+        [PUT("api/v1/teams/{id:int}")]
         public void Put(int id, [FromBody]team value)
         {
             int rc = rep.Delete(value);
@@ -55,7 +55,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("teams/{id:int}")]
+        [DELETE("api/v1/teams/{id:int}")]
         public void Delete(int id)
         {
             int rc = rep.Delete(id);

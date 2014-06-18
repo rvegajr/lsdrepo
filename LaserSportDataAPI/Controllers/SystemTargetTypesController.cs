@@ -16,7 +16,7 @@ namespace LaserSportDataAPI.Controllers
     {
         private SystemTargetTypesRepository rep = new SystemTargetTypesRepository();
 
-        [GET("systems/{systemid:int}/targets")]
+        [GET("api/v1/systems/{systemid:int}/targets")]
         public IEnumerable<system_target_type> Get(int systemid)
         {
             var lst = rep.Get();
@@ -27,7 +27,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("systems/{systemid:int}/targets/{id:int}")]
+        [GET("api/v1/systems/{systemid:int}/targets/{id:int}")]
         public system_target_type Get(int id, int targets)
         {
             var a = rep.GetByID(id);
@@ -38,14 +38,14 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("systems/{systemid:int}/targets")]
+        [POST("api/v1/systems/{systemid:int}/targets")]
         public system_target_type Post([FromBody]system_target_type value)
         {
             rep.Insert(value);
             return value;
         }
 
-        [PUT("systems/{systemid:int}/targets/{id:int}")]
+        [PUT("api/v1/systems/{systemid:int}/targets/{id:int}")]
         public void Put(int id, [FromBody]system_target_type value)
         {
             int rc = rep.Delete(value);
@@ -55,7 +55,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("systems/{systemid:int}targets/{id:int}")]
+        [DELETE("api/v1/systems/{systemid:int}targets/{id:int}")]
         public void Delete(int id)
         {
             int rc = rep.Delete(id);

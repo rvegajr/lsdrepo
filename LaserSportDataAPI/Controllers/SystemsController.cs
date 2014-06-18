@@ -14,7 +14,7 @@ namespace LaserSportDataAPI.Controllers
     {
 
         SystemsRepository rep = new SystemsRepository();
-        [GET("systems")]
+        [GET("api/v1/systems")]
         public IEnumerable<system> Get()
         {
             IEnumerable<system> lst = rep.Get();
@@ -25,7 +25,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("systems/{id:int}")]
+        [GET("api/v1/systems/{id:int}")]
         public system Get(int id)
         {
             var a = rep.GetByID(id);
@@ -36,14 +36,14 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("systems")]
+        [POST("api/v1/systems")]
         public system Post([FromBody]system value)
         {
             rep.Insert(value);
             return value;
         }
 
-        [PUT("systems/{id:int}")]
+        [PUT("api/v1/systems/{id:int}")]
         public void Put(int id, [FromBody]system value)
         {
             int rc = rep.Delete(value);
@@ -53,7 +53,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("systems/{id:int}")]
+        [DELETE("api/v1/systems/{id:int}")]
         public void Delete(int id)
         {
             int rc = rep.Delete(id);

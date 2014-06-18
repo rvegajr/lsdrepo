@@ -16,7 +16,7 @@ namespace LaserSportDataAPI.Controllers
     {
         MatchTeamPlayerScoresRepository rep = new MatchTeamPlayerScoresRepository();
 
-        [GET("events/{event_id:int}/scores")]
+        [GET("api/v1/events/{event_id:int}/scores")]
         public IEnumerable<match_team_player_score> Get(int event_id)
         {
             var lst = rep.GetScoresByEvent(event_id);
@@ -27,7 +27,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("scores/{id}")]
+        [GET("api/v1/scores/{id}")]
         public match_team_player_score Get(string id)
         {
             var a = rep.GetByID(id);
@@ -38,7 +38,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [GET("events/{event_id:int}/matches/{match_id:int}/scores")]
+        [GET("api/v1/events/{event_id:int}/matches/{match_id:int}/scores")]
         public IEnumerable<match_team_player_score> Get(int event_id, int match_id)
         {
             var lst = rep.GetScoresByMatch(event_id, match_id);
@@ -49,7 +49,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{event_id:int}/series/{series_id:int}/scores")]
+        [GET("api/v1/events/{event_id:int}/series/{series_id:int}/scores")]
         public IEnumerable<match_team_player_score> GetSeriesScores(int event_id, int series_id)
         {
             var lst = rep.GetScoresByEventSeries(event_id, series_id);

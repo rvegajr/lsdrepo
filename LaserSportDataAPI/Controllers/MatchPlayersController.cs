@@ -15,7 +15,7 @@ namespace LaserSportDataAPI.Controllers
     {
         MatchPlayersRepository rep = new MatchPlayersRepository();
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/players")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/players")]
         public IEnumerable<match_player> Get(int eventid, int matchid)
         {
             IEnumerable<match_player> lst = rep.GetPlayersByMatch(matchid);
@@ -26,7 +26,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players")]
         public IEnumerable<match_player> GetPlayersForTeam(int eventid, int matchid, int teamid)
         {
             IEnumerable<match_player> lst = rep.GetPlayersByMatchAndTeam(matchid, teamid);
@@ -37,7 +37,7 @@ namespace LaserSportDataAPI.Controllers
             return lst;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
         public match_player Get(int eventid, int matchid, int playerid)
         {
             var a = rep.Get(eventid, matchid, playerid);
@@ -48,7 +48,7 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [GET("events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players/{playerid:int}")]
+        [GET("api/v1/events/{eventid:int}/matches/{matchid:int}/teams/{teamid:int}/players/{playerid:int}")]
         public match_player Get(int eventid, int matchid, int teamid, int playerid)
         {
             var a = rep.Get(eventid, matchid, playerid);
@@ -60,13 +60,13 @@ namespace LaserSportDataAPI.Controllers
             return a;
         }
 
-        [POST("events/{eventid:int}/matches/{matchid:int}/players")]
+        [POST("api/v1/events/{eventid:int}/matches/{matchid:int}/players")]
         public match_player Post(int eventid, int matchid, [FromBody]match_player value)
         {
             return rep.Insert(value);
         }
 
-        [PUT("events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
+        [PUT("api/v1/events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
         public void Put(int eventid, int matchid, int playerid, [FromBody]match_player value)
         {
             int rc = rep.Update(value);
@@ -76,7 +76,7 @@ namespace LaserSportDataAPI.Controllers
             }
         }
 
-        [DELETE("events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
+        [DELETE("api/v1/events/{eventid:int}/matches/{matchid:int}/players/{playerid:int}")]
         public void Delete([FromBody]match_player value)
         {
             int rc = rep.Delete(value);
