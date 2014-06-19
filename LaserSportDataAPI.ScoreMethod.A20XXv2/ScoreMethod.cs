@@ -71,37 +71,37 @@ namespace LaserSportDataAPI.SystemObjects.A20XXv2
             var client = new RestClient(this.Url);
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
 
-            var requestEvent = new RestRequest("events/{event_id}", Method.GET);
+            var requestEvent = new RestRequest("api/v1/events/{event_id}", Method.GET);
             requestEvent.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<lsevent> responseEvent = client.Execute<lsevent>(requestEvent);
             Event = (lsevent)responseEvent.Data;
 
-            var requestTeams = new RestRequest("events/{event_id}/teams", Method.GET);
+            var requestTeams = new RestRequest("api/v1/events/{event_id}/teams", Method.GET);
             requestTeams.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<team>> responseTeams = client.Execute<List<team>>(requestTeams);
             TeamList = (new CollectionUtilities<int, team>()).ListToDictionary((List<team>)responseTeams.Data, "id");
 
-            var requestSeries = new RestRequest("events/{event_id}/series", Method.GET);
+            var requestSeries = new RestRequest("api/v1/events/{event_id}/series", Method.GET);
             requestSeries.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<series>> responseSeries = client.Execute<List<series>>(requestSeries);
             SeriesList = (new CollectionUtilities<int, series>()).ListToDictionary((List<series>)responseSeries.Data, "id");
 
-            var requestPlayers = new RestRequest("events/{event_id}/players", Method.GET);
+            var requestPlayers = new RestRequest("api/v1/events/{event_id}/players", Method.GET);
             requestPlayers.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<player>> responsePlayers = client.Execute<List<player>>(requestPlayers);
             PlayerList = (new CollectionUtilities<int, player>()).ListToDictionary((List<player>)responsePlayers.Data, "id");
 
-            var requestPacksets = new RestRequest("events/{event_id}/packsets", Method.GET);
+            var requestPacksets = new RestRequest("api/v1/events/{event_id}/packsets", Method.GET);
             requestPacksets.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<packset>> responsePacksets = client.Execute<List<packset>>(requestPacksets);
             PackSetList = (new CollectionUtilities<int, packset>()).ListToDictionary((List<packset>)responsePacksets.Data, "id");
 
-            var requestMatches = new RestRequest("events/{event_id}/matches", Method.GET);
+            var requestMatches = new RestRequest("api/v1/events/{event_id}/matches", Method.GET);
             requestMatches.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<match>> responseMatches = client.Execute<List<match>>(requestMatches);
             MatchList = (List<match>)responseMatches.Data;
 
-            var requestScores = new RestRequest("events/{event_id}/scores", Method.GET);
+            var requestScores = new RestRequest("api/v1/events/{event_id}/scores", Method.GET);
             requestScores.AddUrlSegment("event_id", eventId.ToString()); // replaces matching token in request.Resource
             IRestResponse<List<match_team_player_score>> responseScores = client.Execute<List<match_team_player_score>>(requestScores);
             ScoreList = (new CollectionUtilities<string, match_team_player_score>()).ListToDictionary((List<match_team_player_score>)responseScores.Data, "id");

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Simple.Data;
+using System.IO;
 using AttributeRouting.Web.Http;
 using LaserSportDataObjects;
 using LaserSportDataAPI.Models;
@@ -20,6 +21,7 @@ namespace LaserSportDataAPI.Controllers
         public IEventSummary Get(int eventid)
         {
             var res = ScoreMethodInstance(eventid);
+            res.Url = this.Request.RequestUri.Scheme + "://" + this.Request.RequestUri.Authority + @"/";
             return res.GetEventSummary(eventid, 0);
         }
         [GET("api/v1/events/{eventid:int}/results/summary/")]
@@ -35,16 +37,23 @@ namespace LaserSportDataAPI.Controllers
             string sClassName = "ScoreMethod";
             string sAssemblyName = "";
             string sObjectName = "";
+            IScoreMethod inst;
             try
             {
+                //get the full location of the assembly with DaoTests in it
                 EventsRepository oevtrep = new EventsRepository();
                 lsevent oevt = oevtrep.GetByID(evt);
                 ScoreMethodRepository ismrep = new ScoreMethodRepository();
                 score_method osm = ismrep.GetByID(oevt.score_method_id);
                 sAssemblyName = osm.proc;
+                if (String.IsNullOrEmpty(sAssemblyName)) {
+                    sAssemblyName = "LaserSportDataAPI.SystemObjects.Sample";
+                }
+                string AssemblyFilePath = AssemblyDirectory + "\\" + sAssemblyName + ".dll";
+
                 Assembly asmCurrent = Assembly.Load(new AssemblyName(sAssemblyName));
                 sObjectName = osm.proc + "." + sClassName;
-                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
+                inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
                 if (inst==null) {
                     throw new Exception("Could not create an instance of class " + sObjectName);
                 }
@@ -55,11 +64,21 @@ namespace LaserSportDataAPI.Controllers
                 sAssemblyName = "LaserSportDataAPI.SystemObjects.Sample";
                 sObjectName = sAssemblyName + "." + sClassName;
                 Assembly asmCurrent = Assembly.Load(new AssemblyName(sAssemblyName));
-                IScoreMethod inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
+                inst = (IScoreMethod)asmCurrent.CreateInstance(sObjectName);
                 return inst;
                 //return null;
             }
-        } 
+        }
 
+        static public string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
     }
 }

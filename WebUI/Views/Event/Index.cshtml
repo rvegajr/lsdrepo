@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Event";
+}
+<p>Day: <input data-bind="value: day" /></p>
+<p>Month: <input data-bind="value: month" /></p>
+<p>Year: <input data-bind="value: year" /></p>
+<p>The current date is <span data-bind="text: fullDate"></span></p>
+
+<ul id="view-products" data-bind="foreach: events">
+    <li>
+        <div>
+            <div class="item">ID</div> <span data-bind="text: $data.Id"></span>
+        </div>
+        <div>
+            <div class="item">Event Name</div>
+            <input type="text" data-bind="value: $data.lsevent_name" />
+        </div>
+        <div>
+            <div class="item">Scheduled</div>
+            <input type="text" data-bind="value: $data.scheduled" />
+        </div>
+    </li>
+</ul>
+<script>
+    function EventsViewModel() {
+        var self = this;
+        self.events = ko.observableArray();
+
+        // New code
+        var baseUri = 'http://localhost:8000/events';
+        $.getJSON(baseUri, self.events);
+        this.day = ko.observable('24');
+        this.month = ko.observable('02');
+        this.year = ko.observable('2012');
+
+        this.fullDate = ko.computed(function () {
+            return this.day() + "/" + this.month() + "/" + this.year();
+        }, this);
+    }
+    jQuery(document).ready(function () {
+        ko.applyBindings(new EventsViewModel());
+    });
+</script>
