@@ -20,6 +20,7 @@ namespace LaserSportDataAPI.CLI
             Console_WriteLine(@"  /p - path to search for files");
             Console_WriteLine(@"  /e - Event Meta Data 'Event Name|Event code|Schedule Date|Score Method'");
             Console_WriteLine(@"  /a:xlsimport /p:<XLS FILE PATH> /e:<Event Meta Data>");
+            // /a:xlsimport /e:"Armageddon 2014|A2014US|6/27/2014 11:20:00 PM|a20xx_v2" /p:"C:\_dev\a20xx\lsdrepo\xls"
             // /a:xlsimport /e:"Armageddon 2099|A2099US|6/21/2013 12:00:00 AM|a20xx_v2" /p:"C:\Users\Ricky\Documents\Projects\a20xx\lsdrepo\xls"
             Console_WriteLine(@"  /a:evtrestest /e:<event id to test>");  // /a:evtrestest /e:8
             Console_WriteLine(@"  /a:webobjtest /e:<event id to test> /u:""http://lsdrep.api.url"" ");  // /a:webobjtest /e:8 /u:"http://localhost:8000/e" 
@@ -47,7 +48,7 @@ namespace LaserSportDataAPI.CLI
             var filePaths = new string[filePathsXLSX.Length + filePathsXLS.Length];
             filePathsXLSX.CopyTo(filePaths, 0);
             filePathsXLS.CopyTo(filePaths, filePathsXLSX.Length);
-
+            filePaths = filePaths.Distinct().ToArray();
             Dictionary<string, string> dictHeaders = new Dictionary<string, string>();
 
             List<string> arrHeaderNames = new List<string>();
